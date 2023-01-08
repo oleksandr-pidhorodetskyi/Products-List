@@ -100,16 +100,6 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const headProductId = req.params.id;
   try {
-    // const comments = await Comment.findAnd(
-    //   {
-    //     productId: headProductId,
-    //   },
-    // );
-    // await Product.findByIdAndDelete(
-    //   {
-    //     _id: headProductId,
-    //   },
-    // );
     await Comment.deleteMany({ productId: headProductId });
     await Product.findByIdAndRemove(headProductId);
     return res.status(200).send({ message: 'Deleted successfully' });
