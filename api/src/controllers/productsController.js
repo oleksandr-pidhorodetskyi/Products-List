@@ -3,12 +3,12 @@ const { Comment } = require('../models/Comment');
 
 const addProduct = async (req, res) => {
   const product = new Product(req.body);
-  await product.save({}, (err) => {
-    if (err) {
-      return res.status(500).send({ message: 'string' });
-    }
-    return res.status(200).send({ message: 'Product created successfully' });
-  });
+  try {
+    const savedProduct = await product.save();
+    res.status(200).json(savedProduct);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 const getProducts = async (req, res) => {
@@ -91,7 +91,33 @@ const updateProduct = async (req, res) => {
       },
       { new: true },
     );
-    res.status(200).json(updatedProduct);
+    const {
+      _id,
+      imageUrl,
+      name,
+      count,
+      size,
+      weight,
+      comments,
+    } = updatedProduct;
+
+    const result = {
+      _id,
+      imageUrl,
+      name,
+      count,
+      size: { width: size.width, height: size.height },
+      weight,
+      comments: comments.map((item) => (
+        {
+          _id: item._id,
+          productId: item.productId,
+          description: item.description,
+          date: item.createdAt,
+        }
+      )),
+    };
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error);
   }

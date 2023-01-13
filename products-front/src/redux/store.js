@@ -1,6 +1,5 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import productReducer from './reducers/products/productsSlice';
-import commentReducer from './reducers/comments/commentsSlice';
 import {
 	persistReducer,
 	FLUSH,
@@ -13,16 +12,12 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-	key: 'product-list',
+	key: 'product-list2',
+	version: 2,
 	storage,
 };
 
-const rootReducer = combineReducers({
-	product: productReducer,
-	comment: commentReducer,
-});
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, productReducer);
 
 export const store = configureStore({
 	reducer: persistedReducer,

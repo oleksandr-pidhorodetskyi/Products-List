@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ModalContext } from '../contexts/ModalContext';
 
 const SearchBar = ({ setOptionSort }) => {
+	const { setModal, modal } = useContext(ModalContext);
+
 	const handleSort = (e) => {
 		setOptionSort(e.target.value);
 	};
@@ -26,7 +29,16 @@ const SearchBar = ({ setOptionSort }) => {
 					</option>
 				</select>
 			</div>
-			<button type='button' className='btn btn-success'>
+			<button
+				onClick={() =>
+					setModal({
+						...modal,
+						addModal: true,
+					})
+				}
+				type='button'
+				className='btn btn-success'
+			>
 				Add
 			</button>
 		</div>

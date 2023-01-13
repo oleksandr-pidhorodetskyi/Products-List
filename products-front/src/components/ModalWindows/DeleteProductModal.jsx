@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { deleteProduct } from '../../redux/apiCalls';
 import ModalWindowBase from './ModalWindowBase';
 
-const DeleteModal = ({ modal, setModal, info }) => {
+const DeleteProductModal = ({ modal, setModal, info }) => {
 	const dispatch = useDispatch();
 
 	return (
@@ -19,4 +19,4 @@ const DeleteModal = ({ modal, setModal, info }) => {
 	);
 };
 
-export default DeleteModal;
+export default DeleteProductModal;

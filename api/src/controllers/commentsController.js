@@ -7,17 +7,43 @@ const addComment = async (req, res) => {
     productId: headProductId,
     description: req.body.description,
   });
+  try {
+    await comment.save((err) => err && res.status(500).send({ message: 'Not saved comment' }));
 
-  await comment.save((err) => err && res.status(500).send({ message: 'Not saved comment' }));
+    const productRelated = await Product.findById(headProductId);
+    productRelated.comments.push(comment);
+    const savedCurrentProduct = await productRelated.save();
+    const {
+      _id,
+      imageUrl,
+      name,
+      count,
+      size,
+      weight,
+      comments,
+    } = savedCurrentProduct;
 
-  const productRelated = await Product.findById(headProductId);
-  productRelated.comments.push(comment);
-  await productRelated.save((err) => {
-    if (err) {
-      return res.status(500).send({ message: 'Not added coment to product' });
-    }
-    return res.status(200).send({ message: 'Comment created successfully' });
-  });
+    const result = {
+      _id,
+      imageUrl,
+      name,
+      count,
+      size: { width: size.width, height: size.height },
+      weight,
+      comments: comments.map((item) => (
+        {
+          _id: item._id,
+          productId: item.productId,
+          description: item.description,
+          date: item.createdAt,
+        }
+      )),
+    };
+    res.status(200).json(result);
+    // return res.status(200).send(savedCurrentProduct);
+  } catch (err) {
+    return res.status(500).send({ message: 'eror' });
+  }
 };
 
 const deleteComment = async (req, res) => {

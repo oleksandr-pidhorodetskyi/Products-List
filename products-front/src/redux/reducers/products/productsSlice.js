@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const productSlice = createSlice({
 	name: 'product',
 	initialState: {
+		currentProduct: {},
 		products: [],
 		isFetching: false,
 		error: false,
@@ -18,6 +19,19 @@ export const productSlice = createSlice({
 			state.products = action.payload;
 		},
 		getProductsFailure: (state) => {
+			state.isFetching = false;
+			state.error = true;
+		},
+		// GET PRODUCT
+		getOneProductStart: (state) => {
+			state.isFetching = true;
+			state.error = false;
+		},
+		getOneProductSuccess: (state, action) => {
+			state.isFetching = false;
+			state.currentProduct = action.payload;
+		},
+		getOneProductFailure: (state) => {
 			state.isFetching = false;
 			state.error = true;
 		},
@@ -37,34 +51,51 @@ export const productSlice = createSlice({
 			state.isFetching = false;
 			state.error = true;
 		},
-		// 	//UPDATE
-		// 	updateProductStart: (state) => {
-		// 		state.isFetching = true;
-		// 		state.error = false;
-		// 	},
-		// 	updateProductSuccess: (state, action) => {
-		// 		state.isFetching = false;
-		// 		state.products[
-		// 			state.products.findIndex((item) => item._id === action.payload.id)
-		// 		] = action.payload.product;
-		// 	},
-		// 	updateProductFailure: (state) => {
-		// 		state.isFetching = false;
-		// 		state.error = true;
-		// 	},
-		// 	//UPDATE
-		// 	addProductStart: (state) => {
-		// 		state.isFetching = true;
-		// 		state.error = false;
-		// 	},
-		// 	addProductSuccess: (state, action) => {
-		// 		state.isFetching = false;
-		// 		state.products.push(action.payload);
-		// 	},
-		// 	addProductFailure: (state) => {
-		// 		state.isFetching = false;
-		// 		state.error = true;
-		// 	},
+		//ADD
+		addProductStart: (state) => {
+			state.isFetching = true;
+			state.error = false;
+		},
+		addProductSuccess: (state, action) => {
+			state.isFetching = false;
+			state.products.push(action.payload);
+		},
+		addProductFailure: (state) => {
+			state.isFetching = false;
+			state.error = true;
+		},
+		//UPDATE
+		updateProductStart: (state) => {
+			state.isFetching = true;
+			state.error = false;
+		},
+		updateProductSuccess: (state, action) => {
+			state.isFetching = false;
+			state.products[
+				state.products.findIndex((item) => item._id === action.payload.id)
+			] = action.payload.product;
+			state.currentProduct = action.payload.product;
+		},
+		updateProductFailure: (state) => {
+			state.isFetching = false;
+			state.error = true;
+		},
+		//ADD COMMENT IN PRODUCT
+		addCommentStart: (state) => {
+			state.isFetching = true;
+			state.error = false;
+		},
+		addCommentSuccess: (state, action) => {
+			state.isFetching = false;
+			state.products[
+				state.products.findIndex((item) => item._id === action.payload.id)
+			] = action.payload.product;
+			state.currentProduct = action.payload.product;
+		},
+		addCommentFailure: (state) => {
+			state.isFetching = false;
+			state.error = true;
+		},
 	},
 });
 
@@ -72,15 +103,21 @@ export const {
 	getProductsStart,
 	getProductsSuccess,
 	getProductsFailure,
+	getOneProductStart,
+	getOneProductSuccess,
+	getOneProductFailure,
 	deleteProductStart,
 	deleteProductSuccess,
 	deleteProductFailure,
-	// updateProductStart,
-	// updateProductSuccess,
-	// updateProductFailure,
-	// addProductStart,
-	// addProductSuccess,
-	// addProductFailure,
+	updateProductStart,
+	updateProductSuccess,
+	updateProductFailure,
+	addProductStart,
+	addProductSuccess,
+	addProductFailure,
+	addCommentFailure,
+	addCommentStart,
+	addCommentSuccess,
 } = productSlice.actions;
 
 export default productSlice.reducer;

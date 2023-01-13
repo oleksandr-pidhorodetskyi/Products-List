@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   addProduct, getProducts, getProductById, updateProduct, deleteProduct,
 } = require('../controllers/productsController');
-// getProducts, addProduct, deleteProduct, updateProduct, getProductById
+
 const asyncWrapper = (controller) => (req, res, next) => controller(req, res, next).catch(next);
 
 router.post('', asyncWrapper(addProduct));

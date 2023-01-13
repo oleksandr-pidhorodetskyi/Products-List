@@ -3,15 +3,21 @@ import {
 	getProductsFailure,
 	getProductsStart,
 	getProductsSuccess,
+	getOneProductStart,
+	getOneProductSuccess,
+	getOneProductFailure,
 	deleteProductFailure,
 	deleteProductStart,
 	deleteProductSuccess,
-	// updateProductFailure,
-	// updateProductStart,
-	// updateProductSuccess,
-	// addProductFailure,
-	// addProductStart,
-	// addProductSuccess,
+	updateProductFailure,
+	updateProductStart,
+	updateProductSuccess,
+	addProductFailure,
+	addProductStart,
+	addProductSuccess,
+	addCommentFailure,
+	addCommentStart,
+	addCommentSuccess,
 } from './reducers/products/productsSlice';
 
 const BASE_URL = 'http://localhost:5000/api/';
@@ -28,15 +34,24 @@ export const getProducts = async (dispatch) => {
 		dispatch(getProductsFailure());
 	}
 };
-// export const addProduct = async (product, dispatch) => {
-// 	dispatch(addProductStart());
-// 	try {
-// 		const res = await request.post(`/products`, product);
-// 		dispatch(addProductSuccess(res.data));
-// 	} catch (err) {
-// 		dispatch(addProductFailure());
-// 	}
-// };
+export const getOneProduct = async (id, dispatch) => {
+	dispatch(getOneProductStart());
+	try {
+		const res = await request.get(`/products/${id}`);
+		dispatch(getOneProductSuccess(res.data));
+	} catch (err) {
+		dispatch(getOneProductFailure());
+	}
+};
+export const addProduct = async (product, dispatch) => {
+	dispatch(addProductStart());
+	try {
+		const res = await request.post(`/products`, product);
+		dispatch(addProductSuccess(res.data));
+	} catch (err) {
+		dispatch(addProductFailure());
+	}
+};
 
 export const deleteProduct = async (id, dispatch) => {
 	dispatch(deleteProductStart());
@@ -48,12 +63,23 @@ export const deleteProduct = async (id, dispatch) => {
 	}
 };
 
-// export const updateProduct = async (id, product, dispatch) => {
-// 	dispatch(updateProductStart());
-// 	try {
-// 		// update
-// 		dispatch(updateProductSuccess({ id, product }));
-// 	} catch (err) {
-// 		dispatch(updateProductFailure());
-// 	}
-// };
+export const updateProduct = async (id, product, dispatch) => {
+	dispatch(updateProductStart());
+	try {
+		const res = await request.put(`/products/${id}`, product);
+		dispatch(updateProductSuccess({ id, product: res.data }));
+	} catch (err) {
+		dispatch(updateProductFailure());
+	}
+};
+
+export const addComment = async (id, product, dispatch) => {
+	dispatch(addCommentStart());
+	try {
+		const res = await request.post(`/comments/${id}`, product);
+		console.log(res.data);
+		dispatch(addCommentSuccess({ id, product: res.data }));
+	} catch (err) {
+		dispatch(addCommentFailure());
+	}
+};

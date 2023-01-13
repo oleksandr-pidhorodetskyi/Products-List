@@ -5,22 +5,28 @@ import { getProducts } from '../redux/apiCalls';
 import Loader from '../components/Loader';
 import { useState } from 'react';
 import SearchBar from '../components/SearchBar';
-import ModalWindowBase from '../components/ModalWindows/ModalWindowBase';
+// import ModalWindowBase from '../components/ModalWindows/ModalWindowBase';
 import { ModalContext } from '../contexts/ModalContext';
-import DeleteModal from '../components/ModalWindows/DeleteModal';
+import DeleteProductModal from '../components/ModalWindows/DeleteProductModal';
+import AddProductModal from '../components/ModalWindows/AddProductModal';
 
 const Home = () => {
 	const dispatch = useDispatch();
-	const products = useSelector((state) => state.product.products);
-	const isFetching = useSelector((state) => state.product.isFetching);
+	const products = useSelector((state) => state.products);
+	const isFetching = useSelector((state) => state.isFetching);
 	const [optionSort, setOptionSort] = useState('standart');
 	const [sortedProducts, setSortedProducts] = useState([]);
+	const [modal, setModal] = useState({
+		deleteModal: false,
+		addgModal: false,
+		info: null,
+	});
+
 	useEffect(() => {
 		getProducts(dispatch);
 	}, [dispatch]);
 
 	useEffect(() => {
-		console.log(products);
 		const sorted = [...products];
 		if (optionSort === 'standart') {
 			sorted.sort((a, b) => {
@@ -42,16 +48,10 @@ const Home = () => {
 		}
 		setSortedProducts(sorted);
 	}, [products, optionSort]);
-
-	const [modal, setModal] = useState({
-		deleteModal: false,
-		addgModal: false,
-		info: null,
-	});
-
 	return (
 		<div>
-			<DeleteModal modal={modal} setModal={setModal} info={modal.info} />
+			<DeleteProductModal modal={modal} setModal={setModal} info={modal.info} />
+			<AddProductModal modal={modal} setModal={setModal} />
 			<ModalContext.Provider
 				value={{
 					setModal,
