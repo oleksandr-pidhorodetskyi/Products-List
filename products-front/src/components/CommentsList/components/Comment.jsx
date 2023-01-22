@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ModalContext } from '../../../contexts/ModalContext';
 import { formatDate } from '../../../helpers/formatDate';
 
 const Comment = ({ data }) => {
-	console.log(data.date);
+	const { setModal, modal, productId } = useContext(ModalContext);
 	return (
 		<div
 			className='comment__container p-2 rounded-3 border border-2 shadow-sm'
@@ -13,7 +14,17 @@ const Comment = ({ data }) => {
 		>
 			<div className='comment__top d-flex align-items-center justify-content-between'>
 				<span className='fs-6'>{formatDate(Date.parse(data.date))}</span>
-				<button type='button' className='btn btn-outline-danger'>
+				<button
+					onClick={() =>
+						setModal({
+							...modal,
+							deleteModal: true,
+							info: { id: data._id, productId: productId },
+						})
+					}
+					type='button'
+					className='btn btn-outline-danger'
+				>
 					<i className='bi bi-trash'></i>
 				</button>
 			</div>

@@ -18,6 +18,9 @@ import {
 	addCommentFailure,
 	addCommentStart,
 	addCommentSuccess,
+	deleteCommentFailure,
+	deleteCommentStart,
+	deleteCommentSuccess,
 } from './reducers/products/productsSlice';
 
 const BASE_URL = 'http://localhost:5000/api/';
@@ -81,5 +84,14 @@ export const addComment = async (id, product, dispatch) => {
 		dispatch(addCommentSuccess({ id, product: res.data }));
 	} catch (err) {
 		dispatch(addCommentFailure());
+	}
+};
+export const deleteComment = async (id, productId, dispatch) => {
+	dispatch(deleteCommentStart());
+	try {
+		await request.delete(`/comments/${productId}/${id}`);
+		dispatch(deleteCommentSuccess({ id, productId }));
+	} catch (err) {
+		dispatch(deleteCommentFailure());
 	}
 };

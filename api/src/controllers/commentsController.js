@@ -39,26 +39,26 @@ const addComment = async (req, res) => {
         }
       )),
     };
-    res.status(200).json(result);
-    // return res.status(200).send(savedCurrentProduct);
+    return res.status(200).send(result);
   } catch (err) {
-    return res.status(500).send({ message: 'eror' });
+    return res.status(500).send({ message: 'Not addded comment' });
   }
 };
 
 const deleteComment = async (req, res) => {
-  const headProductId = req.params.id;
+  const headProductId = req.params.productId;
+  const headCommentId = req.params.commentId;
   try {
     await Comment.findOneAndDelete(
       {
         productId: headProductId,
-        _id: req.body.id,
+        _id: headCommentId,
       },
     );
 
     const postRelated = await Product.findById(headProductId);
     const commentIndex = postRelated.comments
-      .findIndex((obj) => obj._id.toString() === req.body.id);
+      .findIndex((obj) => obj._id.toString() === headCommentId);
 
     if (commentIndex > -1) {
       postRelated.comments.splice(commentIndex, 1);

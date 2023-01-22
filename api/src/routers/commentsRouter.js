@@ -7,6 +7,6 @@ const asyncWrapper = (controller) => (req, res, next) => controller(req, res, ne
 
 router.post('/:id', asyncWrapper(addComment));
 
-router.delete('/:id', asyncWrapper(deleteComment));
+router.delete('/:productId/:commentId', asyncWrapper(deleteComment));
 
 module.exports = router;

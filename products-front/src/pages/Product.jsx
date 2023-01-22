@@ -19,12 +19,8 @@ const Product = () => {
 	const [modal, setModal] = useState({
 		deleteModal: false,
 		editModal: false,
-		addCommentModal: false,
 		info: null,
 	});
-	useEffect(() => {
-		console.log(modal);
-	}, [modal]);
 	useEffect(() => {
 		getOneProduct(id, dispatch);
 	}, [dispatch]);
@@ -36,9 +32,6 @@ const Product = () => {
 		addComment(id, comment, dispatch);
 		setComment('');
 	};
-	useEffect(() => {
-		console.log(comment);
-	}, [comment]);
 	return (
 		<div>
 			{modal.info?.product && (
@@ -49,6 +42,7 @@ const Product = () => {
 				value={{
 					setModal,
 					modal,
+					productId: id,
 				}}
 			>
 				<div className='container-md'>

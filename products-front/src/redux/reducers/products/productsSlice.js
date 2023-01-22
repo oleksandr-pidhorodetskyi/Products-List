@@ -96,6 +96,27 @@ export const productSlice = createSlice({
 			state.isFetching = false;
 			state.error = true;
 		},
+		//DELETE COMMENT
+		deleteCommentStart: (state) => {
+			state.isFetching = true;
+			state.error = false;
+		},
+		deleteCommentSuccess: (state, action) => {
+			state.isFetching = false;
+			const commentIndex = state.currentProduct.comments.findIndex(
+				(item) => item._id === action.payload.id
+			);
+			state.products.find((item) => {
+				if (item._id === action.payload.productId) {
+					item.comments.splice(commentIndex, 1);
+				}
+			});
+			state.currentProduct.comments.splice(commentIndex, 1);
+		},
+		deleteCommentFailure: (state) => {
+			state.isFetching = false;
+			state.error = true;
+		},
 	},
 });
 
@@ -118,6 +139,9 @@ export const {
 	addCommentFailure,
 	addCommentStart,
 	addCommentSuccess,
+	deleteCommentStart,
+	deleteCommentSuccess,
+	deleteCommentFailure,
 } = productSlice.actions;
 
 export default productSlice.reducer;

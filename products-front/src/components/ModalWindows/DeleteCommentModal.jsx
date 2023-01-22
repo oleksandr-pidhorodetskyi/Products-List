@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addComment } from '../../redux/apiCalls';
+import { deleteComment } from '../../redux/apiCalls';
 import ModalWindowBase from './ModalWindowBase';
 
 const DeleteCommentModal = ({ modal, setModal, info }) => {
@@ -11,7 +11,7 @@ const DeleteCommentModal = ({ modal, setModal, info }) => {
 			isOppened={modal.deleteModal}
 			onModalClose={() => setModal({ ...modal, deleteModal: false })}
 			onSuccess={() => {
-				// deleteProduct(info, dispatch);
+				deleteComment(info.id, info.productId, dispatch);
 				setModal({ ...modal, deleteModal: false, info: null });
 			}}
 			title='Are you sure you want to delete?'
