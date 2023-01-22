@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import CommentsList from '../components/CommentsList/CommentsList';
-import Loader from '../components/Loader';
-import DeleteCommentModal from '../components/ModalWindows/DeleteCommentModal';
-import EditProductModal from '../components/ModalWindows/EditProductModal';
-import ProductTopBar from '../components/ProductTopBar';
-import { ModalContext } from '../contexts/ModalContext';
-import { addComment, getOneProduct } from '../redux/apiCalls';
+import './product.css';
+import CommentsList from '../../components/CommentsList/CommentsList';
+import Loader from '../../components/Loader';
+import DeleteCommentModal from '../../components/ModalWindows/DeleteCommentModal';
+import EditProductModal from '../../components/ModalWindows/EditProductModal';
+import ProductTopBar from '../../components/ProductTopBar';
+import { ModalContext } from '../../contexts/ModalContext';
+import { addComment, getOneProduct } from '../../redux/apiCalls';
 
 const Product = () => {
 	const { id } = useParams();
@@ -33,7 +34,7 @@ const Product = () => {
 		setComment('');
 	};
 	return (
-		<div>
+		<main className='mb-4' style={{ flexGrow: 1 }}>
 			{modal.info?.product && (
 				<EditProductModal modal={modal} setModal={setModal} info={modal.info} />
 			)}
@@ -140,7 +141,7 @@ const Product = () => {
 					)}
 				</div>
 			</ModalContext.Provider>
-		</div>
+		</main>
 	);
 };
 

@@ -1,0 +1,9 @@
+@media screen and (max-width: 996px) {
+    .product__main {
+        flex-direction: column;
+        align-items: center;
+    }
+    .product__info {
+        min-width: 100%;
+    }
+}

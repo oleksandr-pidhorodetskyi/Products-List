@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Product from './pages/Product';
-import Header from './components/Header';
 import Footer from './components/Footer';
+import Header from './components/Header/Header';
+import Product from './pages/Product/Product';
 function App() {
 	return (
-		<div className=''>
+		<div className='d-flex flex-column min-vh-100'>
 			<Header />
 			<Routes>
 				<Route path='/' element={<Home />} />

@@ -49,7 +49,7 @@ const Home = () => {
 		setSortedProducts(sorted);
 	}, [products, optionSort]);
 	return (
-		<div>
+		<main className='mb-4' style={{ flexGrow: 1 }}>
 			<DeleteProductModal modal={modal} setModal={setModal} info={modal.info} />
 			<AddProductModal modal={modal} setModal={setModal} />
 			<ModalContext.Provider
@@ -63,7 +63,7 @@ const Home = () => {
 					{isFetching ? <Loader /> : <ProductsList products={sortedProducts} />}
 				</div>
 			</ModalContext.Provider>
-		</div>
+		</main>
 	);
 };
 
