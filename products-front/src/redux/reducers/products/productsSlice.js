@@ -106,10 +106,11 @@ export const productSlice = createSlice({
 			const commentIndex = state.currentProduct.comments.findIndex(
 				(item) => item._id === action.payload.id
 			);
-			state.products.find((item) => {
+			state.products.map((item) => {
 				if (item._id === action.payload.productId) {
-					return item.comments.splice(commentIndex, 1);
+					item.comments.splice(commentIndex, 1);
 				}
+				return item;
 			});
 			state.currentProduct.comments.splice(commentIndex, 1);
 		},
