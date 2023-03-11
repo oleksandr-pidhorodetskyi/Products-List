@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProduct, deleteProduct } from '../../redux/apiCalls';
+import { addProduct } from '../../redux/apiCalls';
 import ModalWindowBase from './ModalWindowBase';
 
 const AddProductModal = ({ modal, setModal, info }) => {

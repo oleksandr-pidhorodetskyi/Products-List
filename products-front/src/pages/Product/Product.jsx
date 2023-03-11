@@ -24,7 +24,7 @@ const Product = () => {
 	});
 	useEffect(() => {
 		getOneProduct(id, dispatch);
-	}, [dispatch]);
+	}, [id, dispatch]);
 
 	const handleChangeComment = (e) => {
 		setComment({ description: e.target.value });

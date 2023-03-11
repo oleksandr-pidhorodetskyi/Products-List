@@ -108,7 +108,7 @@ export const productSlice = createSlice({
 			);
 			state.products.find((item) => {
 				if (item._id === action.payload.productId) {
-					item.comments.splice(commentIndex, 1);
+					return item.comments.splice(commentIndex, 1);
 				}
 			});
 			state.currentProduct.comments.splice(commentIndex, 1);
