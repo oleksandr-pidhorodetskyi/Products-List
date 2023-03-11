@@ -23,7 +23,8 @@ import {
 	deleteCommentSuccess,
 } from './reducers/products/productsSlice';
 
-const BASE_URL = 'http://localhost:5000/api/';
+const BASE_URL =
+	'https://pidhorodetskyi-products-shop-backend.onrender.com/api/';
 const request = axios.create({
 	baseURL: BASE_URL,
 });
