@@ -6,8 +6,9 @@ Here you can see all products, can add a new product in an opened modal window, 
 Clone or download this repositoty.
 Go to api folder first and install the dependencies:
 <br><br>
-`cd .\api\
-npm i`
+`cd .\api\`
+<br>
+`npm i`
 <br><br>
 Then you need start the database:
 <br><br>
@@ -16,8 +17,11 @@ Then you need start the database:
 After that go to products-front folder and install the dependencies next step start an App:
 <br><br>
 `cd .\products-front\`
+<br>
 `npm i`
+<br>
 `npm run start`
+<br><br>
 ## Pages
 "/" - Home Page<br><br>
 "/products/:id" - Specific product page
