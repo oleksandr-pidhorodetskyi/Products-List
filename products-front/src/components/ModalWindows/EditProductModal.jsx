@@ -45,7 +45,6 @@ const EditProductModal = ({ modal, setModal, info }) => {
 					size: { width: width, height: height },
 					weight,
 				};
-				console.log(res);
 				updateProduct(info.id, res, dispatch);
 				setModal({ ...modal, editModal: false });
 			}}

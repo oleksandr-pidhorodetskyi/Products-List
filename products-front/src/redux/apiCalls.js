@@ -80,7 +80,6 @@ export const addComment = async (id, product, dispatch) => {
 	dispatch(addCommentStart());
 	try {
 		const res = await request.post(`/comments/${id}`, product);
-		console.log(res.data);
 		dispatch(addCommentSuccess({ id, product: res.data }));
 	} catch (err) {
 		dispatch(addCommentFailure());

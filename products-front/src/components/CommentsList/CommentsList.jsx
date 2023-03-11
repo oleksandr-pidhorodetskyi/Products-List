@@ -12,9 +12,11 @@ const CommentsList = ({ data }) => {
 					'linear-gradient(90deg, rgba(239,239,241,1) 34%, rgba(255,255,255,1) 100%)',
 			}}
 		>
-			{data.map((el) => (
-				<Comment key={el._id} data={el} />
-			))}
+			{data.length !== 0 ? (
+				data.map((el) => <Comment key={el._id} data={el} />)
+			) : (
+				<p>No comments</p>
+			)}
 		</section>
 	);
 };

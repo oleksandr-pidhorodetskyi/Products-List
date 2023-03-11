@@ -131,6 +131,7 @@ const Product = () => {
 										onClick={handleClickComment}
 										type='button'
 										className='btn btn-success'
+										disabled={comment.description === ''}
 									>
 										<i className='bi bi-plus-circle'></i>
 									</button>
